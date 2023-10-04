@@ -3,6 +3,7 @@ import os
 from backend_functions import getch, option_menu
 import platform
 from create_save import create_save
+from environment import environments, get_environment_by_name
 
 
 if platform.system() == "Windows":
@@ -15,7 +16,12 @@ else:
 print("Welcome to Ultraworld!")
 print("  [N]ew Game")
 print("  [L]oad Game")
-option_menu({
+savegame = option_menu({
     "n": lambda: create_save(uw_directory),
     "l": lambda: print("Thanks for playing!")
 })
+
+while True:
+    scene = get_environment_by_name(savegame["scene"])
+    scene.blurb()
+    option_menu(scene.actions)
